@@ -49,4 +49,13 @@ class Schedule():
         else:
             print("can't sort by "+str(field)+" yet")
             return self
- 
+    
+          
+    def title(self, phrase):
+        '''filter course containing the phrase in title'''
+        #print([type(course['name'])  for course in self.courses])
+        return Schedule([course for course in self.courses if phrase in course['name']])
+
+    def description(self,number):
+        #print([type(course['limit'])  for course in self.courses])
+        return Schedule([course for course in self.courses if course['limit'] != None and course['limit'] > number])

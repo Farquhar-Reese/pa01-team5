@@ -47,6 +47,15 @@ def topmenu():
         elif command in ['s','subject']:
             subject = input("enter a subject:")
             schedule = schedule.subject([subject])
+        elif command in ['title']:
+            phrase = input("enter a phrase:")
+            schedule = schedule.title(phrase)
+        elif command in ['d', 'description']:
+            phrase = input("enter a phrase:")
+            schedule = schedule.description(phrase)    
+        elif command in ['l', 'limit']:
+            number = int(input("preferred courses must be larger than:"))
+            schedule = schedule.limit(number)   
         else:
             print('command',command,'is not supported')
             continue
@@ -62,7 +71,7 @@ def print_course(course):
     print_course prints a brief description of the course 
     '''
     print(course['subject'],course['coursenum'],course['section'],
-          course['name'],course['term'],course['instructor'])
+        course['name'],course['term'],course['instructor'])
 
 if __name__ == '__main__':
     topmenu()

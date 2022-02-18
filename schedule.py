@@ -43,7 +43,12 @@ class Schedule():
         ''' subject filters the courses by subject '''
         return Schedule([course for course in self.courses if course['subject'] in subjects])
 
+    def course(self,coursenum):
+        ''' subject filters the courses by course number '''
+        return Schedule([course for course in self.courses if coursenum in course['coursenum']])
+
     def sort(self,field):
+        ''' sorts the courses'''
         if field=='subject':
             return Schedule(sorted(self.courses, key= lambda course: course['subject']))
         else:
@@ -60,9 +65,8 @@ class Schedule():
 
     def limit(self,number):
         ''' filters out courses that have limit sizes greater than the number specified'''
-        return Schedule([course for course in self.courses if course['limit'] != None and course['limit'] > number])
-
-    
-
-
- 
+        return Schedule([course for course in self.courses if course['limit'] is not None and course['limit'] > number])
+    #filter made by adam
+    def days(self, day):
+        ''' filters out courses by days'''
+        return Schedule([course for course in self.courses if bool(course['times']) and day in course['times'][0]['days']])

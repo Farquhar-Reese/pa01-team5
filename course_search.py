@@ -3,6 +3,8 @@ course_search is a Python script using a terminal based menu to help
 students search for courses they might want to take at Brandeis
 '''
 
+
+
 from schedule import Schedule
 import sys
 
@@ -29,7 +31,7 @@ def topmenu():
     topmenu is the top level loop of the course search app
     '''
     global schedule
-    while True:         
+    while True:
         command = input(">> (h for help) ")
         if command=='quit':
             return
@@ -48,23 +50,27 @@ def topmenu():
             subject = input("enter a subject:")
             schedule = schedule.subject([subject])
         elif command in ['title']:
-            phrase = input("enter a phrase:")
+            phrase = input("enter a phrase: ")
             schedule = schedule.title(phrase)
         elif command in ['d', 'description']:
             phrase = input("enter a phrase:")
-            schedule = schedule.description(phrase)    
+            schedule = schedule.description(phrase)
         elif command in ['l', 'limit']:
             number = int(input("preferred courses must be larger than:"))
-            schedule = schedule.limit(number)   
+            schedule = schedule.limit(number)
         elif command in ['c','course']:
-            number = int(input("enter course number:"))
-            subject = input("enter subject")
+            number = input("enter course number:")
+            schedule = schedule.course(number)
         elif command in ['i','instructor']:
             instructor = input("enter a last name or email:")
             if '@' in instructor:
                 schedule = schedule.email(instructor)
             else:
                 schedule = schedule.lastname(instructor)
+        #filter by days a course takes place (made by adam)
+        elif command in ['days']:
+            day = input("pick a day between M - F: ")
+            schedule = schedule.days(day)
         else:
             print('command',command,'is not supported')
             continue
@@ -77,11 +83,10 @@ def topmenu():
 
 def print_course(course):
     '''
-    print_course prints a brief description of the course 
+    print_course prints a brief description of the course
     '''
     print(course['subject'],course['coursenum'],course['section'],
         course['name'],course['term'],course['instructor'])
 
 if __name__ == '__main__':
     topmenu()
-

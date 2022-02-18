@@ -56,6 +56,15 @@ def topmenu():
         elif command in ['l', 'limit']:
             number = int(input("preferred courses must be larger than:"))
             schedule = schedule.limit(number)   
+        elif command in ['c','course']:
+            number = int(input("enter course number:"))
+            subject = input("enter subject")
+        elif command in ['i','instructor']:
+            instructor = input("enter a last name or email:")
+            if '@' in instructor:
+                schedule = schedule.email(instructor)
+            else:
+                schedule = schedule.lastname(instructor)
         else:
             print('command',command,'is not supported')
             continue

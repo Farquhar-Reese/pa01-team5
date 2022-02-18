@@ -62,5 +62,7 @@ class Schedule():
         ''' filters out courses that have limit sizes greater than the number specified'''
         return Schedule([course for course in self.courses if course['limit'] != None and course['limit'] > number])
 
+    
+
 
  

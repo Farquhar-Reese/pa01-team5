@@ -71,6 +71,10 @@ def topmenu():
         elif command in ['days']:
             day = input("pick a day between M - F: ")
             schedule = schedule.days(day)
+        # filter courses by number of students on waitlist (amanda)
+        elif command in ['waitlist']:
+            waiting = input("enter waiting number: ")
+            schedule = schedule.course(waiting)
         else:
             print('command',command,'is not supported')
             continue

@@ -70,3 +70,7 @@ class Schedule():
     def days(self, day):
         ''' filters out courses by days'''
         return Schedule([course for course in self.courses if bool(course['times']) and day in course['times'][0]['days']])
+    # filter made by amanda 
+    def waitlist(self, waiting):
+        ''' filters out courses by number of students on waitlist'''
+        return Schedule([course for course in self.courses if waiting in course['waitlist']])

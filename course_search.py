@@ -3,8 +3,6 @@ course_search is a Python script using a terminal based menu to help
 students search for courses they might want to take at Brandeis
 '''
 
-
-
 from schedule import Schedule
 import sys
 
@@ -22,6 +20,7 @@ subject (filter by subject, e.g. COSI, or LALS)
 title  (filter by phrase in title)
 description (filter by phrase in description)
 timeofday (filter by day and time, e.g. meets at 11 on Wed)
+credit (filter by number of credits given by course)
 '''
 
 terms = {c['term'] for c in schedule.courses}
@@ -31,7 +30,7 @@ def topmenu():
     topmenu is the top level loop of the course search app
     '''
     global schedule
-    while True:
+    while True:         
         command = input(">> (h for help) ")
         if command=='quit':
             return
@@ -50,31 +49,26 @@ def topmenu():
             subject = input("enter a subject:")
             schedule = schedule.subject([subject])
         elif command in ['title']:
-            phrase = input("enter a phrase: ")
+            phrase = input("enter a phrase:")
             schedule = schedule.title(phrase)
         elif command in ['d', 'description']:
             phrase = input("enter a phrase:")
-            schedule = schedule.description(phrase)
+            schedule = schedule.description(phrase)    
         elif command in ['l', 'limit']:
             number = int(input("preferred courses must be larger than:"))
-            schedule = schedule.limit(number)
+            schedule = schedule.limit(number)   
         elif command in ['c','course']:
-            number = input("enter course number:")
-            schedule = schedule.course(number)
+            number = int(input("enter course number:"))
+            subject = input("enter subject")
         elif command in ['i','instructor']:
             instructor = input("enter a last name or email:")
             if '@' in instructor:
                 schedule = schedule.email(instructor)
             else:
                 schedule = schedule.lastname(instructor)
-        #filter by days a course takes place (made by adam)
-        elif command in ['days']:
-            day = input("pick a day between M - F: ")
-            schedule = schedule.days(day)
-        # filter courses by number of students on waitlist (amanda)
-        elif command in ['waitlist']:
-            waiting = input("enter waiting number: ")
-            schedule = schedule.course(waiting)
+        elif command in ['credit']:
+            phrase = input("enter half-course or n semester-hour:")
+            schedule = schedule.credit(phrase)
         else:
             print('command',command,'is not supported')
             continue
@@ -87,10 +81,11 @@ def topmenu():
 
 def print_course(course):
     '''
-    print_course prints a brief description of the course
+    print_course prints a brief description of the course 
     '''
     print(course['subject'],course['coursenum'],course['section'],
         course['name'],course['term'],course['instructor'])
 
 if __name__ == '__main__':
     topmenu()
+
